@@ -33,31 +33,47 @@ app.View.Journals = Backbone.View.extend({
     //this.listenTo(this.model, 'change:dayEnd', this.changeDay);
     this.listenTo(app.collect.journals, 'add', this.addToday);
     this.listenTo(app.collect.journals, 'remove', this.delToday);
+    this.listenTo(app.collect.journals, 'reset', this.delAll);
   },
   render: function() {
     var that = this;
     var order = (this.options.order || 'append') + 'To';
     this.$el[order]('#' + this.options.region).html(this.template()).fadeTo(500, 1);
 
-    if (this.collection.length > 0) {
-      app.View.todayJournal = new app.View.Journal({
-        model: this.collection.at(0)
-      });
-      that.$el.find('ol').append(app.View.todayJournal.render().$el.fadeTo(500, 1));
-    } else {
-      app.View.journalPrompt = new app.View.JournalPrompt;
-      this.$el.prepend(app.View.journalPrompt.render().$el.fadeTo(500, 1));
-    }
+     app.View.journalPrompt = new app.View.JournalPrompt;
+     this.$el.prepend(app.View.journalPrompt.render().$el.fadeTo(500, 1));
+
+    //if (this.collection.length > 0) {
+    //   app.View.todayJournal = new app.View.Journal({
+    //     model: this.collection.at(0)
+    //   });
+    //   that.$el.find('ol').append(app.View.todayJournal.render().$el.fadeTo(500, 1));
+    // } else {
+    //   app.View.journalPrompt = new app.View.JournalPrompt;
+    //   this.$el.prepend(app.View.journalPrompt.render().$el.fadeTo(500, 1));
+    // }
 
     return this;
   },
   addToday: function(model) {
-    app.View.todayJournal = new app.View.Journal({
-      model: model
-    });
-    this.$el.find('ol').append(app.View.todayJournal.render().$el.fadeTo(500, 1));
-  },
+    // var len = 0;
+    // while (len < this.collection.length) {
+    //   app.View.todayJournal = new app.View.Journal({
+    //     model: this.collection.at(0)
+    //   });
+    //   that.$el.find('ol').append(app.View.todayJournal.render().$el.fadeTo(500, 1));
+    //   len++;
+    // }
+       app.View.todayJournal = new app.View.JournalEntry({
+         collection: this.collection
+       });
+
+       this.$el.find('ol').append(app.View.todayJournal.render().$el.fadeTo(500, 1));
+     },
   delToday: function() {
+    this.render();
+  },
+  delAll: function(){
     this.render();
   },
   changeDay: function() {
@@ -105,12 +121,55 @@ app.View.JournalPrompt = Backbone.View.extend({
   },
 });
 
+app.View.JournalEntry = Backbone.View.extend({
+  attributes: {
+    class: 'journal'
+  },
+  tagName: 'li',
+  template: Handlebars.compile($('#journal-entry-template').html()),
+  events: {
+    "click .delete": "destroy"
+  },
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    var len = 0;
+    var str = '';
+    // if(this.collection.length > 0)
+    // {
+    //   str += this.collection.at(0).get('answer');
+    // }
+    while (len < this.collection.length ) {
+        str += this.collection.at(len).get('answer') + '.\n\n';
+        len++;
+    }
+    var variables = {
+      day: this.collection.at(0).get('day'),
+      answer: str
+    };
+    this.$el.html(this.template(variables));
+    return this;
+  },
+  destroy: function() {
+    var that = this;
+    this.$el.fadeTo(500, 0, function() {
+      var len = that.collection.length;
+      // while (len-- > 0 ) {
+      //     that.collection.at(len).destroy();
+      // }
+      that.collection.reset();
+      that.collection.sync();
+      that.remove();
+    });
+  }
+});
+
 app.View.Journal = Backbone.View.extend({
   attributes: {
     class: 'journal'
   },
   tagName: 'li',
-  //attributes: { class: 'focus' },
   template: Handlebars.compile($('#journal-template').html()),
   events: {
     "click .delete": "destroy"
