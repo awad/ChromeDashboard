@@ -8,7 +8,6 @@ window.app = {
 //Models
   app.model.journal = Backbone.Model.extend({
      defaults: {
-       title: 'Tell me something about today?',
        answer: '',
        day: ''
      }
