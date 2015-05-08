@@ -25,12 +25,13 @@ window.app = {
 
 //Views
 app.View.Journals = Backbone.View.extend({
+    attributes: { id: 'journals' },
     template: Handlebars.compile( $('#journals-template').html()),
     initialize: function () {
       this.render();
       //this.listenTo(this.model, 'change:dayEnd', this.changeDay);
       this.listenTo(app.collect.journals, 'add', this.addToday);
-      //this.listenTo(app.collect.Journals, 'remove', this.delToday);
+      this.listenTo(app.collect.journals, 'remove', this.delToday);
     },
     render: function () {
         var that = this;
@@ -50,8 +51,11 @@ app.View.Journals = Backbone.View.extend({
     addToday: function (model) {
       app.View.todayJournal = new app.View.Journal({ model: model });
       this.$el.find('ol').append(app.View.todayJournal.render().$el.fadeTo(500, 1));
-  },
-  changeDay: function () {
+    },
+    delToday: function(){
+        this.render();
+    },
+    changeDay: function () {
       var that = this;
       // JO: This will eventually handle setting today's focus to yesterday's and re-rendering. For now it's just clearing today's focus.
       if (this.collection.at(0)) {
@@ -64,6 +68,7 @@ app.View.Journals = Backbone.View.extend({
   });
 
 app.View.JournalPrompt =  Backbone.View.extend({
+  attributes: { class: 'prompt' },
   template: Handlebars.compile( $('#journal-prompt-template').html() ),
   events: {
       "keypress input": "SaveOnEnter"
@@ -91,6 +96,7 @@ render: function() {
 });
 
 app.View.Journal = Backbone.View.extend({
+  attributes: { class: 'journal' },
   tagName: 'li',
   //attributes: { class: 'focus' },
   template: Handlebars.compile( $('#journal-template').html() ),
@@ -122,10 +128,9 @@ app.View.AppView = Backbone.View.extend({
   },
   render: function () {
     app.collect.journals = new app.collect.Journals();
-    //app.View.journal = new app.View.Journals({ collection: app.collect.journals, model: app.model.journal, region: 'center-below', order: 'append' });
     app.collect.journals.fetch({
             success: function(response, xhr) {
-                app.View.journal = new app.View.Journals({ collection: app.collect.journals, model: app.model.journal, region: 'center-below', order: 'append' });
+                app.View.journal = new app.View.Journals({ collection: app.collect.journals, model: app.model.journal, region: 'center', order: 'append' });
             },
             error: function (errorResponse) {
                    console.log(errorResponse)
