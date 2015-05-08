@@ -1,0 +1,13 @@
+{
+  "name": "Quick Journal",
+    "version": "1.0.0",
+    "description": "Chrome extension for a quick daily journal.",
+    "chrome_url_overrides": {
+      "newtab": "journal.html"
+    },
+    "offline_enabled": true,
+    "permissions": ["history","tabs","unlimitedStorage", "webRequest", "notifications"],
+    "manifest_version": 2,
+    "update_url": "http://clients2.google.com/service/update2/crx",
+	  "content_security_policy": "script-src 'self' https://js.live.net; object-src 'self'"
+}

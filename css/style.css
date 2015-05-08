@@ -1,0 +1,70 @@
+html { height: 100%; -webkit-user-select: none; }
+body { height: 100%; min-height: 100%; overflow: hidden; background: #fff; color: black;
+  font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium", "Helvetica Neue", Helvetica, Arial, sans-serif; text-shadow: 0px 1px 5px rgba(0,0,0,0.1); }
+
+  #widgets { position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
+
+  /* Regions */
+
+  #center, #top-left, #top-right, #bottom, #bottom-right, #center-below, #center-above { position: absolute; z-index: 2; opacity: .8; }
+
+  #center, #center-below, #center-above { display: block; left:50%;width: 75%; top:50%; text-align: center; -webkit-transform: translate(-50%,-50%); -webkit-transform-origin: 50% 50%; }
+
+  #bottom { width: 75%; bottom: 0; left: 50%; -webkit-transform: translateX(-50%); -webkit-transform-origin: 50% 50%; text-align:center;}
+
+  #top-right { top: 0; right: 0; }
+  #top-left { top: 0; left: 0; }
+  #bottom-right { bottom: 0; right: 0; }
+  .top-nav { display: inline-block; padding: 20px; cursor: pointer; }
+
+  #center-below, #center-above { left: 12.5%; top: 74%; -webkit-transform: translate(0,0); text-align: center; }
+  #center-above { top: 0; z-index: 1; }
+
+  #background, #background li { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: transparent; background-size: cover; background-position: center center; background-repeat: no-repeat; }
+  #background { z-index: 1; }
+  #background { margin: 0; padding: 0; }
+  #background li { background-color: transparent; background-size: cover; background-position: center center; background-repeat: no-repeat; opacity: 0; }
+
+  /* Widgets */
+
+  a { color: #fff; text-decoration: none; opacity: 0.5; -webkit-transition: all 0.3s ease-in-out; font-weight:bold;}
+  a:hover { opacity: 1;  position: relative;}
+
+  /* journals */
+
+  #journals { width: 100%; font-size: 30px; line-height: 1.5em; }
+
+  #journals ol { margin: 0; padding:0; list-style: none; }
+
+  #journals .focus { opacity: 0; display: inline-block !important; overflow: visible; height: 94px; }
+
+  #journals h3, #journals .focus p { padding: 0; margin: 0; }
+
+  #journals .prompt h3 { font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif; font-weight: normal; }
+  #journals .focus h3 { text-transform: capitalize; }
+  #journals .prompt input { width: 17em; border-bottom-width: 2px; font-weight: bold; line-height: 1.2em; }
+
+  #journals .focus p:hover .delete { opacity: 1; }
+
+  #journals .focus p { position: relative; }
+
+  #journals .focus .delete { position: absolute; display: block; height: 26px; width: 26px; top: 10px; right: -38px; background: rgba(255,255,255,0); border-radius: 100px; cursor: pointer; font-size: 12px; line-height: 26px; opacity: 0; -webkit-transition: all 0.1s ease-in-out; -webkit-transform-origin: 50% 50%; border: 1px solid rgba(255,255,255,0); }
+  #journals .focus .delete:hover { border: 1px solid rgba(255,255,255,0.5); opacity: 1; -webkit-transform: scale(1.2); }
+
+  /* Animations */
+
+  .softpulse { -webkit-animation: updatepulse 1s ease 0.5s 1 normal; }
+  .pulse { -webkit-animation: pulse 1s ease 0s 1 normal; }
+
+  @-webkit-keyframes updatepulse {
+    0% { background: rgba(255,255,255,0); }
+    5% { background: rgba(255,255,255,0.6); }
+    100% { background: rgba(0,0,0,0.3); }
+  }
+
+  @-webkit-keyframes pulse {
+    0% { background: rgba(255,255,255,0.5); }
+    100% { background: rgba(255,255,255,0); }
+  }
+  @-webkit-keyframes fadein { from { opacity: 0 } to { opacity: 1 } }
+  @-webkit-keyframes fadeout { from { opacity: 1 } to { opacity: 0 } }
