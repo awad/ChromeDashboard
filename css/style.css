@@ -27,7 +27,7 @@ body { height: 100%; min-height: 100%; overflow: hidden; background: #fff; color
 
   /* Widgets */
 
-  a { color: #fff; text-decoration: none; opacity: 0.5; -webkit-transition: all 0.3s ease-in-out; font-weight:bold;}
+  /*a { color: #fff; text-decoration: none; opacity: 0.5; -webkit-transition: all 0.3s ease-in-out; font-weight:bold;}*/
   a:hover { opacity: 1;  position: relative;}
 
   /* journals */
@@ -41,6 +41,7 @@ body { height: 100%; min-height: 100%; overflow: hidden; background: #fff; color
   #journals h3, #journals .journal p { padding: 0; margin: 0; }
 
   #journals .prompt h3 { font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif; font-weight: normal; }
+  #journals .prompt h3 { font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif; font-weight: normal; color:black;}
   #journals .journal h3 { text-transform: capitalize; }
   #journals .prompt input { background: 0; border: 0; width: 300px; border-bottom: 3px solid black; outline: none; text-align: center; }
   #journals .prompt input { width: 17em; border-bottom-width: 2px; font-weight: bold; line-height: 1.2em; }
@@ -69,3 +70,43 @@ body { height: 100%; min-height: 100%; overflow: hidden; background: #fff; color
   }
   @-webkit-keyframes fadein { from { opacity: 0 } to { opacity: 1 } }
   @-webkit-keyframes fadeout { from { opacity: 1 } to { opacity: 0 } }
+
+  #journals textarea {
+    border: 1px solid #EEEEEE;
+    /*border: none;*/
+    box-shadow: 1px 1px 0 #DDDDDD;
+    display: block;
+    font-family: 'Marck Script',cursive;
+    font-size: 22px;
+    line-height: 50px;
+    margin: 2% auto;
+    padding: 11px 20px 0 70px;
+    resize: none;
+    height: 289px;
+    width: 600px;
+
+ background-image: -moz-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0px), -moz-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -moz-radial-gradient(3.9% 46% , circle closest-corner, #CCCCCC, #CCCCCC 43.5%, transparent 0%);
+ background-image: -webkit-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0), -webkit-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -webkit-radial-gradient(3.9% 46%, circle closest-corner, #cccccc, #cccccc 43.5%, transparent 0%);
+ -webkit-background-size:  100% 50px;
+ background-size: 100% 50px;*/
+  }
+
+/*#journals  textarea {
+    border: 1px solid #EEEEEE;
+    box-shadow: 1px 1px 0 #DDDDDD;
+    display: block;
+    font-family: 'Marck Script',cursive;
+    font-size: 22px;
+    line-height: 50px;
+    margin: 2% auto;
+    padding: 11px 20px 0 70px;
+    resize: none;
+    width: 600px;
+    height: 300px;
+    /*
+    background-image: -moz-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0px), -moz-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -moz-radial-gradient(3.9% 46% , circle closest-corner, #CCCCCC, #CCCCCC 43.5%, transparent 0%);
+    background-image: -webkit-linear-gradient(top , transparent, transparent 49px,#E7EFF8 0), -webkit-radial-gradient(4% 50%, circle closest-corner, #f5f5f5, #f5f5f5 39%, transparent 0%), -webkit-radial-gradient(3.9% 46%, circle closest-corner, #cccccc, #cccccc 43.5%, transparent 0%);
+
+    -webkit-background-size:  100% 50px;
+    background-size: 100% 50px;*/
+}*/

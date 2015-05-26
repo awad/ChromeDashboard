@@ -1,3 +1,35 @@
+//Other JS
+function sendToOneNote(access_token, title, text) {
+
+}
+
+function sendToOneNote(title, text){
+	chrome.storage.local.get("access_token", function(result) {
+    $.ajax({
+ 		accept: "application/json",
+ 		type: "POST",
+ 		url: "https://www.onenote.com/api/v1.0/pages",
+ 		headers: { "Authorization": "Bearer " + access_token },
+ 		data: "<html><head><title>"+ title +"</title></head>" +
+ 			"<body><p>" + text + "</p>" +
+ 			"</body></html>",
+ 		contentType: "text/html",
+ 		success: function (data, status, xhr) {
+ 			alert(status);
+
+ 		},
+ 		complete: function (data, status, xhr) {
+ 			alert(status);
+ 		},
+ 		 error: function (request, status, error) {
+ 			alert(status);
+ 		}
+ 	 });
+
+	});
+	return false;		// Don't forget to return false, otherwise the AJAX request will be cancelled.
+}
+
 // create namespace for our app
 window.app = {
   model: {},
@@ -32,7 +64,7 @@ app.View.Journals = Backbone.View.extend({
     this.render();
     //this.listenTo(this.model, 'change:dayEnd', this.changeDay);
     this.listenTo(app.collect.journals, 'add', this.addToday);
-    this.listenTo(app.collect.journals, 'remove', this.delToday);
+    // this.listenTo(app.collect.journals, 'remove', this.delToday);
     this.listenTo(app.collect.journals, 'reset', this.delAll);
   },
   render: function() {
@@ -55,7 +87,7 @@ app.View.Journals = Backbone.View.extend({
 
     return this;
   },
-  addToday: function(model) {
+  addToday: function(collection) {
     // var len = 0;
     // while (len < this.collection.length) {
     //   app.View.todayJournal = new app.View.Journal({
@@ -94,7 +126,8 @@ app.View.JournalPrompt = Backbone.View.extend({
   },
   template: Handlebars.compile($('#journal-prompt-template').html()),
   events: {
-    "keypress input": "SaveOnEnter"
+    "keypress input": "SaveOnEnter",
+		"keypress textarea": "SaveOnEnter"
   },
   initialize: function() {
     this.render();
@@ -104,10 +137,41 @@ app.View.JournalPrompt = Backbone.View.extend({
     return this;
   },
   SaveOnEnter: function(e) {
-    if (e.keyCode == 13) this.save();
+    if (e.keyCode == 13)
+			{
+				this.save();
+				this.sendToOnenote();
+			}
   },
+  sendToOnenote: function() {
+		var title ='abc';
+		var text = 'help';
+		chrome.storage.local.get("access_token", function(result) {
+			$.ajax({
+			accept: "application/json",
+			type: "POST",
+			url: "https://www.onenote.com/api/v1.0/pages",
+			headers: { "Authorization": "Bearer " + access_token },
+			data: "<html><head><title>"+ title +"</title></head>" +
+				"<body><p>" + text + "</p>" +
+				"</body></html>",
+			contentType: "text/html",
+			success: function (data, status, xhr) {
+				alert(status);
+			},
+			complete: function (data, status, xhr) {
+				alert(status);
+			},
+				error: function (request, status, error) {
+				alert(status);
+			}
+			});
+		});
+		return false;		// Don't forget to return false, otherwise the AJAX request will be cancelled.
+	},
   save: function() {
-    var input = this.$el.find('input')[0];
+    // var input = this.$el.find('input')[0];
+		var input = this.$el.find('textarea')[0];
     var val = input.value;
     var that = this;
     this.$el.fadeTo(500, 0, function() {
@@ -117,8 +181,7 @@ app.View.JournalPrompt = Backbone.View.extend({
         day: 'today'
       });
     });
-
-  },
+  }
 });
 
 app.View.JournalEntry = Backbone.View.extend({
@@ -136,12 +199,8 @@ app.View.JournalEntry = Backbone.View.extend({
   render: function() {
     var len = 0;
     var str = '';
-    // if(this.collection.length > 0)
-    // {
-    //   str += this.collection.at(0).get('answer');
-    // }
     while (len < this.collection.length ) {
-        str += this.collection.at(len).get('answer') + '.\n\n';
+        str += "\"" + this.collection.at(len).get('answer') + '.';
         len++;
     }
     var variables = {
@@ -155,9 +214,9 @@ app.View.JournalEntry = Backbone.View.extend({
     var that = this;
     this.$el.fadeTo(500, 0, function() {
       var len = that.collection.length;
-      // while (len-- > 0 ) {
-      //     that.collection.at(len).destroy();
-      // }
+      while (len-- > 0 ) {
+           that.collection.at(len).destroy();
+       }
       that.collection.reset();
       that.collection.sync();
       that.remove();
@@ -217,6 +276,7 @@ app.View.AppView = Backbone.View.extend({
     });
   }
 });
+
 
 // Initializers
 app.appView = new app.View.AppView();
