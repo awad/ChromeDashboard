@@ -28,6 +28,7 @@ body { height: 100%; min-height: 100%; overflow: hidden; background: #fff; color
   /* Widgets */
 
   /*a { color: #fff; text-decoration: none; opacity: 0.5; -webkit-transition: all 0.3s ease-in-out; font-weight:bold;}*/
+  a { color: black; text-decoration: none; opacity: 0.5; -webkit-transition: all 0.3s ease-in-out; font-weight:bold;}
   a:hover { opacity: 1;  position: relative;}
 
   /* journals */
@@ -40,7 +41,6 @@ body { height: 100%; min-height: 100%; overflow: hidden; background: #fff; color
 
   #journals h3, #journals .journal p { padding: 0; margin: 0; }
 
-  #journals .prompt h3 { font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif; font-weight: normal; }
   #journals .prompt h3 { font-family: "HelveticaNeue-Light", Helvetica, Arial, sans-serif; font-weight: normal; color:black;}
   #journals .journal h3 { text-transform: capitalize; }
   #journals .prompt input { background: 0; border: 0; width: 300px; border-bottom: 3px solid black; outline: none; text-align: center; }
