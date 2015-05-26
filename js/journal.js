@@ -200,7 +200,7 @@ app.View.JournalEntry = Backbone.View.extend({
     var len = 0;
     var str = '';
     while (len < this.collection.length ) {
-        str += "\"" + this.collection.at(len).get('answer') + '.';
+        str += this.collection.at(len).get('answer') + '.';
         len++;
     }
     var variables = {
