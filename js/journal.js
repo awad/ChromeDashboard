@@ -170,7 +170,7 @@ app.View.JournalPrompt = Backbone.View.extend({
 		return false;		// Don't forget to return false, otherwise the AJAX request will be cancelled.
 	},
   save: function() {
-    // var input = this.$el.find('input')[0];
+    //var input = this.$el.find('input')[0];
 		var input = this.$el.find('textarea')[0];
     var val = input.value;
     var that = this;
@@ -200,8 +200,8 @@ app.View.JournalEntry = Backbone.View.extend({
     var len = 0;
     var str = '';
     while (len < this.collection.length ) {
-        str += this.collection.at(len).get('answer') + '.';
-        len++;
+      str += this.collection.at(len).get('answer') + '.' + "<br/>";
+      len++;
     }
     var variables = {
       day: this.collection.at(0).get('day'),
